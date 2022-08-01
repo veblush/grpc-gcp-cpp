@@ -26,9 +26,9 @@ http_archive(
 
 http_archive(
     name = "com_github_googleapis_google_cloud_cpp",
-    sha256 = "a3951678c2413574fa21bea52d4653a508cde12c06f59042a5d04cc23ff33543",
-    strip_prefix = "google-cloud-cpp-2.0.1",
-    url = "https://github.com/googleapis/google-cloud-cpp/archive/v2.0.1.tar.gz",
+    sha256 = "f38e5a261254df244969cbba02cf8fcc2f98f57d545e9c4755288d0801e06807",
+    strip_prefix = "google-cloud-cpp-4ece3c7d53d867373c0373b38f37a98aab1bdfc8",
+    url = "https://github.com/googleapis/google-cloud-cpp/archive/4ece3c7d53d867373c0373b38f37a98aab1bdfc8.tar.gz",
 )
 
 http_archive(
