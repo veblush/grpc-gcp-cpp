@@ -30,6 +30,7 @@ static google::cloud::storage::Client CreateClient(
             absl::ToChronoSeconds(parameters.timeout))
         .set<google::cloud::storage::TransferStallTimeoutOption>(
             absl::ToChronoSeconds(parameters.timeout));
+    printf("TransferStallTimeoutOption used\n");
   }
   if (parameters.client == "gcscpp-grpc") {
     std::string target = parameters.host;
