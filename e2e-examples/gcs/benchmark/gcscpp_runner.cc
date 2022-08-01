@@ -25,6 +25,12 @@ static google::cloud::storage::Client CreateClient(
     opts.set<google::cloud::storage::UploadBufferSizeOption>(
         upload_buffer_size + 1);
   }
+  if (parameters.timeout != absl::InfiniteDuration()) {
+    opts.set<google::cloud::storage::DownloadStallTimeoutOption>(
+            absl::ToChronoSeconds(parameters.timeout))
+        .set<google::cloud::storage::TransferStallTimeoutOption>(
+            absl::ToChronoSeconds(parameters.timeout));
+  }
   if (parameters.client == "gcscpp-grpc") {
     std::string target = parameters.host;
     if (parameters.td) {
