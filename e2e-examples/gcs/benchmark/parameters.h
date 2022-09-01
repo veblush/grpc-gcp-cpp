@@ -47,6 +47,7 @@ struct Parameters {
   bool trying;
   bool wait_threads;
   bool verbose;
+  std::string trace;
 
   std::string report_tag;
   std::string report_file;

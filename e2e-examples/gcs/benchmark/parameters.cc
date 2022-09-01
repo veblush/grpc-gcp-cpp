@@ -49,6 +49,7 @@ ABSL_FLAG(bool, resumable, false, "Use resumable-write for writing");
 ABSL_FLAG(bool, trying, false, "Keep trying the same operation if failed");
 ABSL_FLAG(bool, wait_threads, false, "Wait until all threads are done");
 ABSL_FLAG(bool, verbose, false, "Show debug output and progress updates");
+ABSL_FLAG(std::string, trace, "", "Target stackdriver project for the trace");
 
 ABSL_FLAG(std::string, report_tag, "",
           "The user-defined tag to be inserted in the report");
@@ -115,6 +116,7 @@ absl::optional<Parameters> GetParameters() {
   p.trying = absl::GetFlag(FLAGS_trying);
   p.wait_threads = absl::GetFlag(FLAGS_wait_threads);
   p.verbose = absl::GetFlag(FLAGS_verbose);
+  p.trace = absl::GetFlag(FLAGS_trace);
   p.report_tag = absl::GetFlag(FLAGS_report_tag);
   p.report_file = absl::GetFlag(FLAGS_report_file);
   p.data_file = absl::GetFlag(FLAGS_data_file);

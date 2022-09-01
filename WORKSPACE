@@ -17,6 +17,13 @@ http_archive(
 )
 
 http_archive(
+    name = "io_opencensus_cpp",
+    sha256 = "20119a53cc1c140347671ac40650d797567ec63bd3a9f135e17f144fdb36c272",
+    strip_prefix = "opencensus-cpp-3e6aa4c0fb31d2f39a2d38365483599ab50bef6d",
+    url = "https://github.com/census-instrumentation/opencensus-cpp/archive/3e6aa4c0fb31d2f39a2d38365483599ab50bef6d.tar.gz",
+)
+
+http_archive(
     name = "com_google_googleapis",
     sha256 = "b0989259d95eddabf9684ecb43d3e558e5a18acd3d4a78a372f8152af95bbe71",
     strip_prefix = "googleapis-ff8159ec8694fe07a10142c8c8bf9f740bf0a93e",
@@ -58,3 +65,7 @@ grpc_deps()
 load('@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl', 'grpc_extra_deps')
 
 grpc_extra_deps()
+
+load("@io_opencensus_cpp//bazel:deps.bzl", "opencensus_cpp_deps")
+
+opencensus_cpp_deps()

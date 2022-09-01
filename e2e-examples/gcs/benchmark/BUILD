@@ -188,9 +188,11 @@ cc_binary(
         "grpc_runner",
         "@com_google_googleapis//google/storage/v2:storage_cc_grpc",
         "@com_github_grpc_grpc//:grpc++",
+        "@com_github_grpc_grpc//:grpc_opencensus_plugin",
         "@com_github_grpc_grpc//test/core/util:stack_tracer",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
         "@com_google_absl//absl/strings:str_format",
+        "@io_opencensus_cpp//opencensus/exporters/trace/stackdriver:stackdriver_exporter"
     ],
 )
