@@ -193,6 +193,7 @@ cc_binary(
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
         "@com_google_absl//absl/strings:str_format",
-        "@io_opencensus_cpp//opencensus/exporters/trace/stackdriver:stackdriver_exporter"
+        "@io_opencensus_cpp//opencensus/exporters/trace/stackdriver:stackdriver_exporter",
+        "@io_opencensus_cpp//opencensus/exporters/trace/stdout:stdout_exporter",
     ],
 )

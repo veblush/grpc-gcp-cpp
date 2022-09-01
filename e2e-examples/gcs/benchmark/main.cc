@@ -24,11 +24,12 @@
 #include "gcscpp_runner.h"
 #include "grpc_runner.h"
 #include "grpcpp/opencensus.h"
+#include "opencensus/exporters/trace/stackdriver/stackdriver_exporter.h"
+#include "opencensus/exporters/trace/stdout/stdout_exporter.h"
 #include "parameters.h"
 #include "print_result.h"
 #include "runner.h"
 #include "test/core/util/stack_tracer.h"
-#include "opencensus/exporters/trace/stackdriver/stackdriver_exporter.h"
 
 int main(int argc, char **argv) {
   grpc_core::testing::InitializeStackTracer(argv[0]);
@@ -42,7 +43,11 @@ int main(int argc, char **argv) {
   // Enable trace
   if (!parameters->trace.empty()) {
     grpc::RegisterOpenCensusPlugin();
-    opencensus::exporters::trace::StackdriverExporter::Register(parameters->trace);
+    opencensus::exporters::trace::StdoutExporter::Register();
+    opencensus::exporters::trace::StackdriverExporter::Register(
+        parameters->trace);
+    opencensus::trace::TraceConfig::SetCurrentTraceParams(
+        {128, 128, 128, 128, opencensus::trace::ProbabilitySampler(1.0)});
   }
 
   // Create a runner based on a client
