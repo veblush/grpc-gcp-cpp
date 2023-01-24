@@ -82,6 +82,7 @@ int run_mtest(std::function<std::shared_ptr<grpc::Channel>()> channel_creator,
   google::storage::v2::Object reply;
   grpc::Status status = stub->GetObject(&context, request, &reply);
 
+  std::cerr << "Peer: " << context.peer() << std::endl;
   if (status.ok()) {
     std::cerr << "Status: OK" << std::endl;
   } else {
