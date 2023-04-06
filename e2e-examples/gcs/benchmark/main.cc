@@ -21,7 +21,7 @@
 #include "absl/time/time.h"
 #include "channel_creator.h"
 #include "channel_policy.h"
-#include "gcscpp_runner.h"
+// #include "gcscpp_runner.h"
 #include "grpc_admin.h"
 #include "grpc_runner.h"
 #include "parameters.h"
@@ -48,10 +48,12 @@ int main(int argc, char **argv) {
   std::unique_ptr<Runner> runner;
   if (parameters->client == "grpc") {
     runner.reset(new GrpcRunner(*parameters, watcher));
+  } /*  
   } else if (parameters->client == "gcscpp-json" ||
              parameters->client == "gcscpp-grpc") {
     runner.reset(new GcscppRunner(*parameters, watcher));
-  } else {
+  } */ 
+  else {
     std::cerr << "Invalid client: " << parameters->client << std::endl;
     return 1;
   }

@@ -227,7 +227,7 @@ cc_binary(
         "parameters",
         "runner",
         "runner_watcher",
-        "gcscpp_runner",
+        # "gcscpp_runner",
         "grpc_admin",
         "grpc_runner",
         "@com_google_googleapis//google/storage/v2:storage_cc_grpc",
