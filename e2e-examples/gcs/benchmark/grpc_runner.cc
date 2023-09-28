@@ -344,6 +344,8 @@ bool GrpcRunner::DoRandomRead(
       if (parameters_.crc32c) {
         uint32_t content_crc = response.checksummed_data().crc32c();
         uint32_t calculated_crc = (uint32_t)ComputeCrc32c(content);
+        std::cerr << "CRC32" << content_crc << " vs " << calculated_crc
+                  << std::endl;
         if (content_crc != calculated_crc) {
           std::cerr << "CRC32 is not identical. " << content_crc << " vs "
                     << calculated_crc << std::endl;
