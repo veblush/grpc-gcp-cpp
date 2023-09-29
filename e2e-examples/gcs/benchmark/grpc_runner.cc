@@ -244,10 +244,10 @@ bool GrpcRunner::DoRead(
           absl::CopyCordToString(content, &content_str);
           uint32_t calculated_crc2 = (uint32_t)absl::ComputeCrc32c(content_str);
 
-          std::ofstream out("a.bin");
-          out.write(content_str.c_str(),
-                    sizeof(char) * content_str.size());
-          out.close();
+          std::ofstream file("a.bin");
+          file.write(content_str.c_str(),
+                     sizeof(char) * content_str.size());
+          file.close();
 
           std::cerr << "CRC32 content_crc=" << content_crc
                     << " calculated_crc=" << calculated_crc
