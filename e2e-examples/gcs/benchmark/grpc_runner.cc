@@ -23,6 +23,7 @@
 #include <stdlib.h>
 
 #include <functional>
+#include <iostream>
 #include <thread>
 
 #include "absl/crc/crc32c.h"
@@ -242,6 +243,11 @@ bool GrpcRunner::DoRead(
           std::string content_str;
           absl::CopyCordToString(content, &content_str);
           uint32_t calculated_crc2 = (uint32_t)absl::ComputeCrc32c(content_str);
+
+          std::ofstream out("a.bin");
+          out.write(calculated_crc2.c_str(),
+                    sizeof(char) * calculated_crc2.size());
+          out.close();
 
           std::cerr << "CRC32 content_crc=" << content_crc
                     << " calculated_crc=" << calculated_crc
