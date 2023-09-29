@@ -23,7 +23,7 @@
 #include <stdlib.h>
 
 #include <functional>
-#include <iostream>
+#include <fstream>
 #include <thread>
 
 #include "absl/crc/crc32c.h"
