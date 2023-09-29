@@ -245,8 +245,8 @@ bool GrpcRunner::DoRead(
           uint32_t calculated_crc2 = (uint32_t)absl::ComputeCrc32c(content_str);
 
           std::ofstream out("a.bin");
-          out.write(calculated_crc2.c_str(),
-                    sizeof(char) * calculated_crc2.size());
+          out.write(content_str.c_str(),
+                    sizeof(char) * content_str.size());
           out.close();
 
           std::cerr << "CRC32 content_crc=" << content_crc
