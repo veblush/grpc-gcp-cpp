@@ -238,7 +238,14 @@ bool GrpcRunner::DoRead(
         if (parameters_.crc32c) {
           uint32_t content_crc = response.checksummed_data().crc32c();
           uint32_t calculated_crc = (uint32_t)ComputeCrc32c(content);
-          std::cerr << "CRC32 content_crc=" << content_crc << " calculated_crc=" << calculated_crc
+
+          std::string content_str;
+          absl::CopyCordToString(content, &content_str);
+          uint32_t calculated_crc2 = (uint32_t)absl::ComputeCrc32c(content_str);
+
+          std::cerr << "CRC32 content_crc=" << content_crc
+                    << " calculated_crc=" << calculated_crc
+                    << " calculated_crc2=" << calculated_crc2
                     << " size=" << content_size << std::endl;
           if (content_crc != calculated_crc) {
             std::cerr << "CRC32 is not identical. " << content_crc << " vs "
