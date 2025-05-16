@@ -17,6 +17,7 @@
 
 #include <grpcpp/impl/codegen/status.h>
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,6 +37,7 @@ class RunnerWatcher {
     int32_t runner_id;
     int64_t channel_id;
     std::string peer;
+    std::optional<bool> on_directpath;
     std::string bucket;
     std::string object;
     grpc::Status status;
@@ -57,10 +59,10 @@ class RunnerWatcher {
   void SetDuration(absl::Duration duration);
 
   void NotifyCompleted(OperationType operationType, int32_t runner_id,
-                       int64_t channel_id, std::string peer, std::string bucket,
-                       std::string object, grpc::Status status, int64_t bytes,
-                       absl::Time time, absl::Duration elapsed_time,
-                       std::vector<Chunk> chunks);
+                       int64_t channel_id, std::string peer, std::optional<bool> on_directpath,
+                       std::string bucket, std::string object,
+                       grpc::Status status, int64_t bytes, absl::Time time,
+                       absl::Duration elapsed_time, std::vector<Chunk> chunks);
 
   std::vector<Operation> GetNonWarmupsOperations() const;
 

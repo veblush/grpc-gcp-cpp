@@ -107,6 +107,12 @@ absl::crc32c_t ComputeCrc32c(const absl::Cord& cord) {
   return crc;
 }
 
+bool IsOnDirectpath(grpc::ClientContext* client_context) {
+  return !client_context->auth_context()
+              ->FindPropertyValues("alts_context")
+              .empty();
+}
+
 }  // namespace
 
 GrpcRunner::GrpcRunner(Parameters parameters,
@@ -272,10 +278,11 @@ bool GrpcRunner::DoRead(
       storage_stub_provider->ReportResult(storage.handle, status, context,
                                           run_end - run_start, total_bytes);
 
-      watcher_->NotifyCompleted(
-          OperationType::Read, work_tid, GetChannelId(storage.handle),
-          context.peer(), parameters_.bucket, object, status, total_bytes,
-          run_start, run_end - run_start, std::move(chunks));
+      watcher_->NotifyCompleted(OperationType::Read, work_tid,
+                                GetChannelId(storage.handle), context.peer(),
+                                IsOnDirectpath(&context), parameters_.bucket,
+                                object, status, total_bytes, run_start,
+                                run_end - run_start, std::move(chunks));
 
       if (status.ok()) {
         break;
@@ -380,8 +387,8 @@ bool GrpcRunner::DoRandomRead(
 
     watcher_->NotifyCompleted(
         OperationType::Read, thread_id, GetChannelId(storage.handle),
-        context.peer(), parameters_.bucket, object, status, total_bytes,
-        run_start, run_end - run_start, std::move(chunks));
+        context.peer(), IsOnDirectpath(&context), parameters_.bucket, object,
+        status, total_bytes, run_start, run_end - run_start, std::move(chunks));
 
     if (status.ok()) {
       ;
@@ -523,10 +530,11 @@ bool GrpcRunner::DoWrite(
       storage_stub_provider->ReportResult(storage.handle, status, context,
                                           run_end - run_start, total_bytes);
 
-      watcher_->NotifyCompleted(
-          OperationType::Write, work_tid, GetChannelId(storage.handle),
-          context.peer(), parameters_.bucket, object, status, total_bytes,
-          run_start, run_end - run_start, std::move(chunks));
+      watcher_->NotifyCompleted(OperationType::Write, work_tid,
+                                GetChannelId(storage.handle), context.peer(),
+                                IsOnDirectpath(&context), parameters_.bucket,
+                                object, status, total_bytes, run_start,
+                                run_end - run_start, std::move(chunks));
 
       if (status.ok()) {
         break;

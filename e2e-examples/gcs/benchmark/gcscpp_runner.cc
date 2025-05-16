@@ -146,10 +146,10 @@ bool GcscppRunner::DoRead(int thread_id,
     reader.Close();
     absl::Time run_end = absl::Now();
 
-    watcher_->NotifyCompleted(OperationType::Read, thread_id, 0,
-                              ExtractPeer(reader.headers()), parameters_.bucket,
-                              object, grpc::Status::OK, total_bytes, run_start,
-                              run_end - run_start, chunks);
+    watcher_->NotifyCompleted(
+        OperationType::Read, thread_id, 0, ExtractPeer(reader.headers()),
+        std::nullopt, parameters_.bucket, object, grpc::Status::OK, total_bytes,
+        run_start, run_end - run_start, chunks);
   }
   return true;
 }
@@ -206,10 +206,10 @@ bool GcscppRunner::DoRandomRead(int thread_id,
     reader.Close();
     absl::Time run_end = absl::Now();
 
-    watcher_->NotifyCompleted(OperationType::Read, thread_id, 0,
-                              ExtractPeer(reader.headers()), parameters_.bucket,
-                              object, grpc::Status::OK, total_bytes, run_start,
-                              run_end - run_start, chunks);
+    watcher_->NotifyCompleted(
+        OperationType::Read, thread_id, 0, ExtractPeer(reader.headers()),
+        std::nullopt, parameters_.bucket, object, grpc::Status::OK, total_bytes,
+        run_start, run_end - run_start, chunks);
   }
 
   return true;
@@ -257,10 +257,10 @@ bool GcscppRunner::DoWrite(int thread_id,
     writer.Close();
     absl::Time run_end = absl::Now();
 
-    watcher_->NotifyCompleted(OperationType::Write, thread_id, 0,
-                              ExtractPeer(writer.headers()), parameters_.bucket,
-                              object, grpc::Status::OK, total_bytes, run_start,
-                              run_end - run_start, std::move(chunks));
+    watcher_->NotifyCompleted(
+        OperationType::Write, thread_id, 0, ExtractPeer(writer.headers()),
+        std::nullopt, parameters_.bucket, object, grpc::Status::OK, total_bytes,
+        run_start, run_end - run_start, std::move(chunks));
   }
 
   return true;
